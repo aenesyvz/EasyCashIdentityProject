@@ -1,7 +1,25 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using BusinessLayer.DependencyResolvers.Autofac;
+using DataAccessLayer.Concrete;
+using EntityLayer.Concrete;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<Context>();
+builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<Context>();
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+	.ConfigureContainer<ContainerBuilder>(builder =>
+	{
+		builder.RegisterModule(new AutofacBusinessModule());
+	});
+
 
 var app = builder.Build();
 
@@ -18,6 +36,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

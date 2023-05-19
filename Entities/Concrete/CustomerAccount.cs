@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CoreLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EntityLayer.Concrete
 {
-    public class CustomerAccount
+	public class CustomerAccount:IEntity
     {
         public int Id { get; set; }
         public int AppUserId { get; set; }
@@ -17,27 +17,5 @@ namespace EntityLayer.Concrete
         public string BankBranch { get; set; }
 
         public AppUser AppUser { get; set; }
-    }
-
-    public class CustomerAccountProcess
-    {
-        public int Id { get; set; }
-        public int ProcessType { get; set; }
-        public decimal Amount { get; set; }
-        public DateTime ProcessDate { get; set; }
-    }
-    public class AppUser:IdentityUser<int>
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string City { get; set; }
-        public string District { get; set; }
-        public string ImageUrl { get; set; }
-
-        public List<CustomerAccount> CustomerAccounts { get; set; }
-    }
-    public class AppRole : IdentityRole<int>
-    {
-
     }
 }

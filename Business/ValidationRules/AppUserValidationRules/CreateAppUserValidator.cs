@@ -30,7 +30,7 @@ namespace BusinessLayer.ValidationRules.AppUserValidationRules
 
             RuleFor(c => c.ConfirmPassword)
                 .NotEmpty().WithMessage("Şifre tekrarı boş geçilemez")
-                 .Equal(x => x.Password).WithMessage("Şifreler uyuşmuyor");
+                .Equal(x => x.Password).WithMessage("Şifreler uyuşmuyor");
 
 
         }
